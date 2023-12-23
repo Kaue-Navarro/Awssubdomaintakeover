@@ -21,7 +21,7 @@ siteestatico=$(aws s3 website s3://"$alvo"/ --index-document index.html --error-
 sleep 10;
 
 echo "etapa copiando a poc "
-cppoc=$(aws s3 cp ~/index.html s3://"$alvo"/)
+cppoc=$(aws s3 cp index.html s3://"$alvo"/)
 
 
 echo "etapa desbloqueando bucket"
